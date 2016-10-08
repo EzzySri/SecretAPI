@@ -22,15 +22,6 @@ class SecretsController < ApplicationController
     render json: @secret, status: 200
   end
 
-  # GET /secrets/new
-  def new
-    @secret = Secret.new
-  end
-
-  # GET /secrets/1/edit
-  def edit
-  end
-
   # POST /secrets
   # POST /secrets.json
   def create
@@ -48,7 +39,7 @@ class SecretsController < ApplicationController
   def update
     respond_to do |format|
       if @secret.update(secret_params)
-        format.json { render json: { messsage: 'Your secret has successfully been updated to ' + @secret.secret_message + "'" }, status: 200 }
+        format.json { render json: { messsage: 'Your secret has successfully been updated!', secret: @secret }, status: 200 }
       else
         format.json { render json: { errors: 'Secret could not be updated.' }, status: :unprocessable_entity }
       end
