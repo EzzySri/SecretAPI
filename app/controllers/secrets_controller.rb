@@ -8,7 +8,7 @@ class SecretsController < ApplicationController
   # GET /secrets
   # GET /secrets.json
   def index
-    @secrets = User.find_by(:auth_token => params[:token]).secrets
+    @secrets = User.find_by(:auth_token => authentication_params[:token]).secrets
     if @secrets.empty?
       render json: { message: 'You currently have no secrets.' }, status: 200
     else
@@ -57,7 +57,7 @@ class SecretsController < ApplicationController
 
   private
     def verify_authenticity_token
-      if User.find_by(:auth_token => authentication_params[:token]).nil?
+      if !authentication_params.key?(:token) || authentication_params[:token] == "" || User.find_by(:auth_token => authentication_params[:token]).nil?
         render json: { error: 'Authentication error: No valid API token was provided in the request.' }, status: 401
       end
     end
