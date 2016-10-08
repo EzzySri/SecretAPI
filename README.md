@@ -8,36 +8,36 @@ Personal Secrets REST API:
 
 **API Documentation**
 
-**GET**    /secrets 
-token: string (the auth_token for the current user)
-Returns a list of existing secrets created by the user specified by the token.
+**GET**    /secrets <br />
+token: string (the auth_token for the current user)<br />
+Returns a list of existing secrets created by the user specified by the token.<br />
 
-**POST**   /secrets
-secret_message: string (message for the secret you are creating)
-token: string (the auth_token for the current user)
+**POST**   /secrets<br />
+secret_message: string (message for the secret you are creating)<br />
+token: string (the auth_token for the current user)<br />
 Creates and returns a new secret with the specified secret_message for the user specified by the token.
       
-**GET**    /secrets/:id
-token: string (the auth_token for the current user)
+**GET**    /secrets/:id<br />
+token: string (the auth_token for the current user)<br />
 Returns the secret with the specified secret id.
 
-**PATCH/PUT**  /secrets/:id  
-secret_message: string (updated secret_message for the specified secret)
+**PATCH/PUT**  /secrets/:id  <br />
+secret_message: string (updated secret_message for the specified secret)<br />
 Returns the updated secret.
 
-**DELETE** /secrets/:id
-token: string (the auth_token for the current user)
+**DELETE** /secrets/:id<br />
+token: string (the auth_token for the current user)<br />
 Deletes the secret with the specified id.
 
-**POST**   /users
-username: string (username for the new account creation)
-password: string (password for the new account creation)
-Creates a new user account with the specified username and password.
+**POST**   /users<br />
+username: string (username for the new account creation)<br />
+password: string (password for the new account creation)<br />
+Creates a new user account with the specified username and password.<br />
 Returns the auth_token for the new user.
 
-**POST**   /token      
-username: string (username for an existing account)
-password: string (password for the existing account with the above specified username)
+**POST**   /token      <br />
+username: string (username for an existing account)<br />
+password: string (password for the existing account with the above specified username)<br />
 Returns the auth_token for the specified existing user account.
 
 
@@ -47,97 +47,97 @@ Returns the auth_token for the specified existing user account.
 
 Tests are provided via RSpec script files that act as integration tests to API endpoint URIs. They test the API for valid authentication cases, authorization to create, view, update, and delete particular secrets, and they also test user accounts and auth_token creation.
 
-The test scripts are located at the following locations
-- spec/requests/api/v1/secrets_spec.rb 
-- spec/requests/api/v1/users_spec.rb 
+The test scripts are located at the following locations<br />
+- spec/requests/api/v1/secrets_spec.rb <br />
+- spec/requests/api/v1/users_spec.rb <br />
 
-Tests can be run from the root directory of the app like so:
-rspec spec/requests/api/v1/secrets_spec.rb 
-rspec spec/requests/api/v1/users_spec.rb 
+Tests can be run from the root directory of the app like so:<br />
+rspec spec/requests/api/v1/secrets_spec.rb <br />
+rspec spec/requests/api/v1/users_spec.rb <br />
 
 
 ----------
 
 **Build Instructions**
 
-**Local Build**
-SecretsAPI runs on Ruby v2.2.0 and Rails v4.2.2.
+**Local Build**<br />
+SecretsAPI runs on Ruby v2.2.0 and Rails v4.2.2.<br />
 
-We recommend using [rvm](https://rvm.io/) to manage your versions of Ruby.
+We recommend using [rvm](https://rvm.io/) to manage your versions of Ruby.<br />
 
-After you've setup Ruby and Rails, clone this repo and execute the following commands *from root directory SecretAPI*
+After you've setup Ruby and Rails, clone this repo and execute the following commands *from root directory SecretAPI*<br />
 
     $ bundle install --without production // installs Gems specified in Gemfile (a Ruby package manager)
 	$ bundle exec rake db:migrate // run db migrations
 	$ rails s // starts local Rails server
 
 **Deployment** 
-The Secrets API is currently deployed on Heroku at the following link:
+The Secrets API is currently deployed on Heroku at the following link:<br />
 https://glacial-ocean-18242.herokuapp.com/
 
-To deploy your own build, follow the instructions under the sections 
-“Tracking your app in Git,” “Creating a Heroku remote,” and “Deploying code” for the initial deploy of your Heroku app.
+To deploy your own build, follow the instructions under the sections <br />
+“Tracking your app in Git,” “Creating a Heroku remote,” and “Deploying code” for the initial deploy of your Heroku app.<br />
 https://devcenter.heroku.com/articles/git
 
-Once you’ve executed the terminal command `“$ git push heroku yourbranch:master,”`
-1. `$ heroku run rake db:migrate` to run the database migrations 
+Once you’ve executed the terminal command `“$ git push heroku yourbranch:master,”`<br />
+1. `$ heroku run rake db:migrate` to run the database migrations <br />
 2. Verify that API is online and ready to use by confirming the following sample HTTP request:
 
-**POST** https://glacial-ocean-18242.herokuapp.com/users
-Input:
-username:TomHanks
-password:sfd80ddsjl99
-Output:
-{
-  "message": "TomHanks's account successfully created.",
-  "api_key": “SOME_RANDOM_HEX_API_KEY“
+**POST** https://glacial-ocean-18242.herokuapp.com/users<br />
+Input:<br />
+username:TomHanks<br />
+password:sfd80ddsjl99<br />
+Output:<br />
+{<br />
+  "message": "TomHanks's account successfully created.",<br />
+  "api_key": “SOME_RANDOM_HEX_API_KEY“<br />
 }
 
 ----------
 
 **Examples of API use:**
 
-**POST** https://glacial-ocean-18242.herokuapp.com/users
-Input:
-username:TomHanks
-password:sfd80ddsjl99
-Output:
-{
-  "message": "TomHanks's account successfully created.",
-  "api_key": "80f2ac596cdc498ac5b2dbcd49b652"
+**POST** https://glacial-ocean-18242.herokuapp.com/users<br />
+Input:<br />
+username:TomHanks<br />
+password:sfd80ddsjl99<br />
+Output:<br />
+{<br />
+  "message": "TomHanks's account successfully created.",<br />
+  "api_key": "80f2ac596cdc498ac5b2dbcd49b652"<br />
 }
 
-**POST** https://glacial-ocean-18242.herokuapp.com/secrets
-Input
-token:80f2ac596cdc498ac5b2dbcd49b652
-secret_message:Top secret message!!!
-Output:
-{
-  "id": 1,
-  "user_id": 1,
-  "secret_message": "Top secret message!!!",
-  "created_at": "2016-10-08T19:07:51.892Z",
-  "updated_at": "2016-10-08T19:07:51.892Z"
+**POST** https://glacial-ocean-18242.herokuapp.com/secrets<br />
+Input<br />
+token:80f2ac596cdc498ac5b2dbcd49b652<br />
+secret_message:Top secret message!!!<br />
+Output:<br />
+{<br />
+  "id": 1,<br />
+  "user_id": 1,<br />
+  "secret_message": "Top secret message!!!",<br />
+  "created_at": "2016-10-08T19:07:51.892Z",<br />
+  "updated_at": "2016-10-08T19:07:51.892Z"<br />
 }
 
-**PATCH** https://glacial-ocean-18242.herokuapp.com/secrets/1
-Input:
-token:80f2ac596cdc498ac5b2dbcd49b652
-secret_message:New top secret message!!!
-Output:
-{
-  "messsage":"Your secret has successfully been updated!",
-  "secret": {
-		"id":1,
-		"user_id":1,
-		"secret_message":"New top secret message!!!",
-		"created_at":"2016-10-08T19:07:51.892Z",
-		"updated_at":"2016-10-08T19:08:49.685Z"
-		}
+**PATCH** https://glacial-ocean-18242.herokuapp.com/secrets/1<br />
+Input:<br />
+token:80f2ac596cdc498ac5b2dbcd49b652<br />
+secret_message:New top secret message!!!<br />
+Output:<br />
+{<br />
+  "messsage":"Your secret has successfully been updated!",<br />
+  "secret": {<br />
+		"id":1,<br />
+		"user_id":1,<br />
+		"secret_message":"New top secret message!!!",<br />
+		"created_at":"2016-10-08T19:07:51.892Z",<br />
+		"updated_at":"2016-10-08T19:08:49.685Z"<br />
+		}<br />
 }
 
-**POST** https://glacial-ocean-18242.herokuapp.com/secrets
-Input: 
-secret_message:Top secret message!!!
-Output:
+**POST** https://glacial-ocean-18242.herokuapp.com/secrets<br />
+Input: <br />
+secret_message:Top secret message!!!<br />
+Output:<br />
 { "error":" Authentication error: No valid API token was provided in the request." }
