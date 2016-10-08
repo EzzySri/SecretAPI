@@ -51,7 +51,7 @@ class SecretsController < ApplicationController
   def destroy
     @secret.destroy
     respond_to do |format|
-      format.json { render json: { message: 'Your secret has been destroyed.' } }
+      format.json { render json: { message: 'Your secret has been destroyed.', secret: @secret } }
     end
   end
 
